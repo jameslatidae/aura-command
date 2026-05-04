@@ -1,0 +1,6 @@
+{
+  "name": "AURA Command",
+  "description": "AURA Command is a universal HMI and control-panel builder for AV system integrators, allowing users to design professional touchscreen interfaces with smart programmable widgets. It separates the Designer, where panels and logic are created, from the Runtime, which executes the finished interface on Windows, Linux, Raspberry Pi, RK SBC, or Android-based touch panels.\n\nTagline option:\n\nAURA Command — Build the Panel. Wire the Logic. Control Everything.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
