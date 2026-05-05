@@ -1,5 +1,9 @@
 import { app, BrowserWindow, Menu } from 'electron';
-import * as path from 'path';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Note: Using a simple check. If app is packaged, it's definitely production.
 const isDev = !app.isPackaged && process.env.NODE_ENV !== 'production';
