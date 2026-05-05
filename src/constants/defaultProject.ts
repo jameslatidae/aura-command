@@ -141,6 +141,7 @@ export const createDefaultProject = (): AURAProject => {
       gridEnabled: true,
       gridSize: 20,
       snapToGrid: true,
+      gridOpacity: 0.25,
       themeId: 'broadcast_dark'
     },
     widgets: [exampleBtn]

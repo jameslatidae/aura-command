@@ -2,6 +2,7 @@ import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import { AURAProject, Widget, ButtonWidget, AURATheme } from './types';
 import { createDefaultProject } from './constants/defaultProject';
 import { THEMES } from './constants/themes';
+import { generateUUID } from './lib/utils';
 
 type StoreState = {
   project: AURAProject;
@@ -15,6 +16,7 @@ type StoreAction =
   | { type: 'SET_WIDGET_SELECTED'; payload: string | null }
   | { type: 'UPDATE_PAGE'; payload: Partial<AURAProject['page']> }
   | { type: 'ADD_WIDGET'; payload: Widget }
+  | { type: 'DUPLICATE_WIDGET'; payload: string }
   | { type: 'UPDATE_WIDGET'; payload: { id: string; updates: Partial<ButtonWidget> } }
   | { type: 'DELETE_WIDGET'; payload: string }
   | { type: 'RESET_DEFAULT' }
@@ -40,6 +42,22 @@ const reducer = (state: StoreState, action: StoreAction): StoreState => {
       return { ...state, project: { ...state.project, page: { ...state.project.page, ...action.payload } } };
     case 'ADD_WIDGET':
       return { ...state, project: { ...state.project, widgets: [...state.project.widgets, action.payload] }, selectedWidgetId: action.payload.id };
+    case 'DUPLICATE_WIDGET': {
+      const widgetToCopy = state.project.widgets.find(w => w.id === action.payload);
+      if (!widgetToCopy) return state;
+      const newWidget = JSON.parse(JSON.stringify(widgetToCopy));
+      newWidget.id = 'btn_' + generateUUID();
+      newWidget.geometry = { ...newWidget.geometry, x: newWidget.geometry.x + 20, y: newWidget.geometry.y + 20 };
+      newWidget.name = `${newWidget.name} (Copy)`;
+      return {
+        ...state,
+        project: {
+          ...state.project,
+          widgets: [...state.project.widgets, newWidget]
+        },
+        selectedWidgetId: newWidget.id
+      };
+    }
     case 'UPDATE_WIDGET':
       return {
         ...state,

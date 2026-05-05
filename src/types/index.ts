@@ -23,7 +23,7 @@ export interface AURATheme {
   baseFontSize: number;
 }
 
-export type BackgroundType = 'solid' | 'gradient';
+export type BackgroundType = 'theme' | 'solid' | 'gradient';
 
 export interface PageConfig {
   id: string;
@@ -36,6 +36,8 @@ export interface PageConfig {
   gridEnabled: boolean;
   gridSize: number;
   snapToGrid: boolean;
+  gridOpacity?: number;
+  gridColor?: string;
   themeId: string;
 }
 

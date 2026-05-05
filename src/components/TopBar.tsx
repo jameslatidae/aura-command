@@ -1,10 +1,10 @@
 import React, { useRef } from 'react';
 import { useStore } from '../store';
-import { Play, Save, FolderOpen, Download, Upload, PlusSquare } from 'lucide-react';
+import { Save, Download, Upload, PlusSquare } from 'lucide-react';
 import { AURAProject } from '../types';
 
 export const TopBar: React.FC = () => {
-  const { state, dispatch, activeTheme } = useStore();
+  const { state, dispatch } = useStore();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleExport = () => {
@@ -44,18 +44,15 @@ export const TopBar: React.FC = () => {
   };
 
   return (
-    <div 
-      className="h-12 border-b flex items-center justify-between px-4 shrink-0 shadow-lg z-20"
-      style={{ backgroundColor: activeTheme.panelBg, borderColor: activeTheme.border, color: activeTheme.textPrimary }}
-    >
+    <div className="h-12 border-b flex items-center justify-between px-4 shrink-0 shadow-lg z-20 bg-[#16161a] border-[#2d2d35] text-[#d1d5db]">
       <div className="flex items-center space-x-6">
         <div className="font-bold tracking-tight select-none flex items-center space-x-2">
-           <svg className="w-6 h-6" style={{ color: activeTheme.primary }} viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 19h20L12 2zm0 3.8L18.4 17H5.6L12 5.8z"/></svg>
-           <span className="text-white">AURA <span className="opacity-80 font-light" style={{ color: activeTheme.textSecondary }}>COMMAND</span></span>
+           <svg className="w-6 h-6 text-[#4f46e5]" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 19h20L12 2zm0 3.8L18.4 17H5.6L12 5.8z"/></svg>
+           <span className="text-white">AURA <span className="opacity-80 font-light text-slate-400">COMMAND</span></span>
         </div>
-        <div className="h-4 w-px" style={{ backgroundColor: activeTheme.border }} />
-        <div className="text-xs font-medium px-3 py-1 rounded border flex items-center space-x-2" style={{ backgroundColor: activeTheme.panelBg2, borderColor: activeTheme.border }}>
-          <span className="opacity-50" style={{ color: activeTheme.textSecondary }}>Project:</span>
+        <div className="h-4 w-px bg-[#2d2d35]" />
+        <div className="text-xs font-medium px-3 py-1 rounded border flex items-center space-x-2 bg-[#1e1e24] border-[#2d2d35]">
+          <span className="opacity-50 text-slate-400">Project:</span>
           <span className="text-blue-400">{state.project.project.name}</span>
         </div>
       </div>
@@ -69,12 +66,10 @@ export const TopBar: React.FC = () => {
            <PlusSquare size={16} /> New
         </button>
         <button className="tb-btn" onClick={() => {
-            // Already auto-saving, but give feedback
             dispatch({ type: 'ADD_LOG', payload: 'Project manually saved.' });
         }}>
            <Save size={16} /> Save
         </button>
-        {/* Load is mostly handled by auto-load from localStorage. No separate 'load' logic needed if it syncs. */}
 
         <div className="flex space-x-1">
             <button className="tb-icon-btn" onClick={() => fileInputRef.current?.click()} title="Import JSON">
@@ -87,17 +82,15 @@ export const TopBar: React.FC = () => {
             </button>
         </div>
 
-        <div className="flex rounded p-0.5 border" style={{ backgroundColor: activeTheme.canvasBg, borderColor: activeTheme.border }}>
+        <div className="flex rounded p-0.5 border bg-[#0a0a0b] border-[#2d2d35]">
            <button 
-             className={`px-3 py-1 text-[11px] font-bold rounded shadow-sm transition-colors ${!state.previewMode ? 'text-white' : 'opacity-50 hover:opacity-100'}`}
-             style={{ backgroundColor: !state.previewMode ? activeTheme.primary : 'transparent' }}
+             className={`px-3 py-1 text-[11px] font-bold rounded shadow-sm transition-colors ${!state.previewMode ? 'bg-[#4f46e5] text-white' : 'text-slate-400 opacity-50 hover:opacity-100 bg-transparent'}`}
              onClick={() => dispatch({ type: 'SET_PREVIEW_MODE', payload: false })}
            >
              DESIGNER
            </button>
            <button 
-             className={`px-3 py-1 text-[11px] font-bold rounded shadow-sm transition-colors ${state.previewMode ? 'text-white' : 'opacity-50 hover:opacity-100'}`}
-             style={{ backgroundColor: state.previewMode ? '#ea580c' : 'transparent' }}
+             className={`px-3 py-1 text-[11px] font-bold rounded shadow-sm transition-colors ${state.previewMode ? 'bg-[#ea580c] text-white' : 'text-slate-400 opacity-50 hover:opacity-100 bg-transparent'}`}
              onClick={() => dispatch({ type: 'SET_PREVIEW_MODE', payload: true })}
            >
              PREVIEW
@@ -107,7 +100,3 @@ export const TopBar: React.FC = () => {
     </div>
   );
 };
-
-// Polyfill for Square since it wasn't imported above directly 
-// Wait, I can just import it from lucide-react directly
-import { Square } from 'lucide-react';

@@ -1,20 +1,25 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# AURA Command
 
-# Run and deploy your AI Studio app
+AURA Command is an LED planning tool for live event LED screen projects.
 
-This contains everything you need to run your app locally.
+## Commands
 
-View your app in AI Studio: https://ai.studio/apps/cdacf88f-7632-4858-aaa2-1975f669e0ad
+### Web App
+- `npm run dev`: Runs the Vite web app
+- `npm run dev:web`: Alias for `npm run dev`
+- `npm run build`: Builds the Vite app
+- `npm run build:web`: Alias for `npm run build`
 
-## Run Locally
+### Electron Desktop App
+- `npm run dev:electron`: Compiles Electron code, starts the Vite web server, and launches the Electron shell automatically.
+- `npm run build:electron`: Builds both the React/Vite front-end and the Electron code.
 
-**Prerequisites:**  Node.js
+## Windows Local Workflow
 
+To easily run the desktop app on Windows, run the provided script in PowerShell:
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+```powershell
+.\scripts\windows\run-aura-command-electron.ps1
+```
+
+This will automatically pull the latest changes, install dependencies, build the project, and launch the Electron app.
